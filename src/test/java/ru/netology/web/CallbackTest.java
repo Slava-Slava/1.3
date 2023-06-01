@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CallbackTest {
     private WebDriver driver;
@@ -98,16 +99,16 @@ class CallbackTest {
         String actual = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim();
         assertEquals(expected, actual);
     }
+
     @Test
     void testSubmitFormWithoutСheckbox(){
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Мария");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79123456789");
-//        driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
+        driver.findElement(By.cssSelector("[data-test-id='agreement']")).isDisplayed();
         driver.findElement(By.tagName("button")).click();
-        Boolean expected = true;
-        Boolean actual = driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid")).isEnabled();
-        assertEquals(expected, actual);
+        assertTrue(driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid")).isDisplayed());
     }
+
     @Test
     void testFormSubmissionWithInvalidCharactersFirstAndLastName(){
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Maria Sokolova");
